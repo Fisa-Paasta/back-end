@@ -1,3 +1,35 @@
 spring:
   application:
-    name: back-end
+    name: paasta-backend
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paastadb
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update  # 개발용 (운영에서는 validate 사용)
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Asia/Seoul
+  
+server:
+  port: 8090
+  
+logging:
+  level:
+    com.paasta.backend: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
