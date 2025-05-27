@@ -1,0 +1,120 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+!/.mvn/wrapper/maven-wrapper.properties
+
+# 민감한 설정 파일들 (중요!)
+application-local.yml
+application-dev.yml
+application-prod.yml
+application-secret.yml
+
+# 환경변수 파일들 (중요!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 데이터베이스 파일들
+*.db
+*.trace.db
+*.lock.db
+
+# 로그 및 임시 파일들
+logs/
+temp/
+tmp/
+*.tmp
+*.temp
+
+# OS 파일들
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+
+# SSL 인증서들
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# 개발 임시 파일들
+test-output/
+scratch/
+notes.txt
+TODO.md
