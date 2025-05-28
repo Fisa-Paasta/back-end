@@ -115,12 +115,12 @@ public class ApplicationService {
     }
 
     /**
-     * 특정 사용자의 신청서 목록 조회
+     * 특정 사용자의 신청서 목록 조회 (삭제된 것 포함)
      */
     @Transactional(readOnly = true)
     public List<ApplicationResponse> getApplicationsByEmployeeId(String employeeId) {
-        List<Application> applications = applicationRepository.findByEmployeeIdNotDeleted(employeeId);
-        log.info("✅ 사용자 신청서 조회: 사번={}, 건수={}", employeeId, applications.size());
+        List<Application> applications = applicationRepository.findByEmployeeIdIncludingDeleted(employeeId);
+        log.info("✅ 사용자 신청서 조회 (삭제 포함): 사번={}, 건수={}", employeeId, applications.size());
         return applications.stream()
                 .map(ApplicationResponse::from)
                 .collect(Collectors.toList());

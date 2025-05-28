@@ -32,6 +32,10 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     @Query("SELECT a FROM Application a WHERE a.employeeId = :employeeId AND a.status != 'DELETED' ORDER BY a.createdAt DESC")
     List<Application> findByEmployeeIdNotDeleted(@Param("employeeId") String employeeId);
     
+    // 특정 사용자의 모든 신청서 조회 (삭제된 것 포함)
+    @Query("SELECT a FROM Application a WHERE a.employeeId = :employeeId ORDER BY a.createdAt DESC")
+    List<Application> findByEmployeeIdIncludingDeleted(@Param("employeeId") String employeeId);
+    
     // ✅ 중복 확인용 - 같은 사용자, 같은 제목, 특정 시간 이후 신청서 조회
     @Query("SELECT a FROM Application a WHERE a.employeeId = :employeeId AND a.title = :title AND a.createdAt > :after")
     List<Application> findByEmployeeIdAndTitleAndCreatedAtAfter(
