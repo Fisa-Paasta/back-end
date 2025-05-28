@@ -3,7 +3,7 @@ spring:
     name: paasta-backend
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/paastadb
+    url: jdbc:postgresql://localhost:15432/paastadb
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver

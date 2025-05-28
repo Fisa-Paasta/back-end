@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.paasta.backend.dto.ApplicationUpdateRequest;
 
 import java.util.List;
 
@@ -67,4 +68,19 @@ public class ApplicationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateApplication(
+        @PathVariable("id") Long id,
+        @RequestBody ApplicationUpdateRequest request
+    ) {
+        try {
+            applicationService.updateApplicationContent(id, request);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("신청서 수정 실패: ID={}, 에러={}", id, e.getMessage());
+            return ResponseEntity.badRequest().body("신청서 수정 실패: " + e.getMessage());
+        }
+    }
+    
 }

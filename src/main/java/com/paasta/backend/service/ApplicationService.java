@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.paasta.backend.dto.ApplicationUpdateRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -218,4 +219,30 @@ public class ApplicationService {
         
         log.info("✅ 신청서 삭제: ID={}, 사번={}", applicationId, application.getEmployeeId());
     }
+    
+    
+    /**
+     * 신청서의 제목과 요청사항(설명)을 수정합니다.
+     *
+     * @param id 수정할 신청서의 ID
+     * @param request 수정할 제목과 설명을 담은 요청 객체
+     * @throws RuntimeException 신청서를 찾을 수 없는 경우
+     */
+    public void updateApplicationContent(Long id, ApplicationUpdateRequest request) {
+        // 1. 신청서 조회
+        Application application = applicationRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("신청서를 찾을 수 없습니다."));
+
+        // 2. 필드 업데이트
+        if (request.getTitle() != null) {
+            application.setTitle(request.getTitle());
+        }
+        if (request.getDescription() != null) {
+            application.setDescription(request.getDescription());
+        }
+
+        // 3. 저장 → @PreUpdate에 의해 updatedAt 자동 갱신
+        applicationRepository.save(application);
+    }
+
 }
