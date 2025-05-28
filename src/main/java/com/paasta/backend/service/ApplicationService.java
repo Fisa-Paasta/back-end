@@ -127,7 +127,19 @@ public class ApplicationService {
     }
 
     /**
-     * 모든 신청서 목록 조회 (관리자용)
+     * 모든 신청서 목록 조회 (관리자용 - 삭제된 것 포함)
+     */
+    @Transactional(readOnly = true)
+    public List<ApplicationResponse> getAllApplicationsIncludingDeleted() {
+        List<Application> applications = applicationRepository.findAllByOrderByCreatedAtDesc();
+        log.info("✅ 전체 신청서 조회 (삭제 포함): 건수={}", applications.size());
+        return applications.stream()
+                .map(ApplicationResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 모든 신청서 목록 조회 (관리자용 - 삭제된 것 제외)
      */
     @Transactional(readOnly = true)
     public List<ApplicationResponse> getAllApplications() {

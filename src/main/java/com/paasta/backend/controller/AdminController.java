@@ -19,18 +19,19 @@ public class AdminController {
 
     private final ApplicationService applicationService;
 
+    // ✅ 관리자는 삭제된 것 포함 모든 신청서 조회
     @GetMapping("/applications")
     public ResponseEntity<List<ApplicationResponse>> getAllApplications() {
         try {
-            List<ApplicationResponse> applications = applicationService.getAllApplications();
+            List<ApplicationResponse> applications = applicationService.getAllApplicationsIncludingDeleted();
+            log.info("✅ 관리자 전체 신청서 조회 (삭제 포함): 건수={}", applications.size());
             return ResponseEntity.ok(applications);
         } catch (Exception e) {
-            log.error("전체 신청서 조회 실패", e);
+            log.error("❌ 관리자 전체 신청서 조회 실패", e);
             return ResponseEntity.badRequest().build();
         }
     }
 
-    // ✅ @PathVariable 명시
     @GetMapping("/applications/status/{status}")
     public ResponseEntity<List<ApplicationResponse>> getApplicationsByStatus(
             @PathVariable("status") String status) {
@@ -43,7 +44,6 @@ public class AdminController {
         }
     }
 
-    // ✅ @PathVariable 명시
     @PutMapping("/applications/{id}/status")
     public ResponseEntity<ApplicationResponse> updateApplicationStatus(
             @PathVariable("id") Long id,
@@ -65,7 +65,6 @@ public class AdminController {
         }
     }
 
-    // ✅ @PathVariable 명시
     @GetMapping("/applications/{id}")
     public ResponseEntity<ApplicationResponse> getApplicationForAdmin(
             @PathVariable("id") Long id) {
