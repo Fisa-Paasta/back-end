@@ -1,10 +1,8 @@
 package com.paasta.backend.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.paasta.backend.dto.ApplicationRequest;
 import com.paasta.backend.dto.ApplicationResponse;
 import com.paasta.backend.service.ApplicationService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

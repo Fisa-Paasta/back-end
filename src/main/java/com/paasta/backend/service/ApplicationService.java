@@ -25,12 +25,25 @@ public class ApplicationService {
     private final ObjectMapper objectMapper;
 
     /**
-     * 신청서 생성
+     * 신청서 생성 (중복 확인 추가)
      */
     public ApplicationResponse createApplication(ApplicationRequest request) {
         try {
+            // ✅ 중복 확인 - 같은 사용자가 같은 제목으로 최근에 신청했는지 확인
+            List<Application> recentApplications = applicationRepository
+                .findByEmployeeIdAndTitleAndCreatedAtAfter(
+                    request.getEmployeeId(), 
+                    request.getTitle(),
+                    LocalDateTime.now().minusMinutes(5) // 5분 이내 중복 체크
+                );
+            
+            if (!recentApplications.isEmpty()) {
+                log.warn("중복 신청 감지: 사번={}, 제목={}", request.getEmployeeId(), request.getTitle());
+                throw new RuntimeException("동일한 신청서가 이미 제출되었습니다.");
+            }
+
             Application application = Application.builder()
-                    .employeeId(request.getEmployeeId()) // 임시로 요청에서 받기
+                    .employeeId(request.getEmployeeId())
                     .title(request.getTitle())
                     .description(request.getDescription())
                     .envType(request.getEnvType())
@@ -90,7 +103,8 @@ public class ApplicationService {
             }
 
             Application savedApplication = applicationRepository.save(application);
-            log.info("신청서 생성 완료: ID={}, 사번={}", savedApplication.getId(), savedApplication.getEmployeeId());
+            log.info("✅ 신청서 생성 완료: ID={}, 사번={}, 제목={}", 
+                    savedApplication.getId(), savedApplication.getEmployeeId(), savedApplication.getTitle());
             
             return ApplicationResponse.from(savedApplication);
 
@@ -106,6 +120,7 @@ public class ApplicationService {
     @Transactional(readOnly = true)
     public List<ApplicationResponse> getApplicationsByEmployeeId(String employeeId) {
         List<Application> applications = applicationRepository.findByEmployeeIdNotDeleted(employeeId);
+        log.info("✅ 사용자 신청서 조회: 사번={}, 건수={}", employeeId, applications.size());
         return applications.stream()
                 .map(ApplicationResponse::from)
                 .collect(Collectors.toList());
@@ -117,6 +132,7 @@ public class ApplicationService {
     @Transactional(readOnly = true)
     public List<ApplicationResponse> getAllApplications() {
         List<Application> applications = applicationRepository.findAllNotDeleted();
+        log.info("✅ 전체 신청서 조회: 건수={}", applications.size());
         return applications.stream()
                 .map(ApplicationResponse::from)
                 .collect(Collectors.toList());
@@ -130,6 +146,7 @@ public class ApplicationService {
         try {
             Application.Status statusEnum = Application.Status.valueOf(status.toUpperCase());
             List<Application> applications = applicationRepository.findByStatusOrderByCreatedAtDesc(statusEnum);
+            log.info("✅ 상태별 신청서 조회: 상태={}, 건수={}", status, applications.size());
             return applications.stream()
                     .map(ApplicationResponse::from)
                     .collect(Collectors.toList());
@@ -157,7 +174,7 @@ public class ApplicationService {
             }
 
             Application savedApplication = applicationRepository.save(application);
-            log.info("신청서 상태 업데이트: ID={}, 상태={}, 승인자={}", 
+            log.info("✅ 신청서 상태 업데이트: ID={}, 상태={}, 승인자={}", 
                     savedApplication.getId(), newStatus, approverEmployeeId);
             
             return ApplicationResponse.from(savedApplication);
@@ -187,6 +204,6 @@ public class ApplicationService {
         application.setStatus(Application.Status.DELETED);
         applicationRepository.save(application);
         
-        log.info("신청서 삭제: ID={}, 사번={}", applicationId, application.getEmployeeId());
+        log.info("✅ 신청서 삭제: ID={}, 사번={}", applicationId, application.getEmployeeId());
     }
 }

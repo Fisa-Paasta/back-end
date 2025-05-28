@@ -1,4 +1,3 @@
-// src/main/java/com/paasta/backend/config/SecurityConfig.java
 package com.paasta.backend.config;
 
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,5 @@
 package com.paasta.backend.config;
 
-import com.paasta.backend.entity.User;
 import com.paasta.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +37,10 @@ public class DataInitializer {
                 }
             }
 
-            if (!userService.existsByEmployeeId("user0002")) {
+            if (!userService.existsByEmployeeId("98765432")) {
                 try {
-                    userService.createUser("user0002", "user123", "기획팀", "테스트사용자2");
-                    log.info("테스트 사용자 계정이 생성되었습니다: user0002");
+                    userService.createUser("98765432", "asdf1234!", "기획팀", "테스트사용자2");
+                    log.info("테스트 사용자 계정이 생성되었습니다: 98765432");
                 } catch (Exception e) {
                     log.warn("테스트 사용자 계정 생성 실패", e);
                 }
