@@ -19,9 +19,6 @@ public class ApplicationController {
 
     private final ApplicationService applicationService;
 
-    /**
-     * 신청서 생성
-     */
     @PostMapping
     public ResponseEntity<ApplicationResponse> createApplication(@RequestBody ApplicationRequest request) {
         try {
@@ -34,11 +31,10 @@ public class ApplicationController {
         }
     }
 
-    /**
-     * 특정 사용자의 신청서 목록 조회
-     */
+    // ✅ @PathVariable 명시
     @GetMapping("/employee/{employeeId}")
-    public ResponseEntity<List<ApplicationResponse>> getApplicationsByEmployee(@PathVariable String employeeId) {
+    public ResponseEntity<List<ApplicationResponse>> getApplicationsByEmployee(
+            @PathVariable("employeeId") String employeeId) {
         try {
             List<ApplicationResponse> applications = applicationService.getApplicationsByEmployeeId(employeeId);
             return ResponseEntity.ok(applications);
@@ -48,11 +44,9 @@ public class ApplicationController {
         }
     }
 
-    /**
-     * 신청서 상세 조회
-     */
+    // ✅ @PathVariable 명시
     @GetMapping("/{id}")
-    public ResponseEntity<ApplicationResponse> getApplication(@PathVariable Long id) {
+    public ResponseEntity<ApplicationResponse> getApplication(@PathVariable("id") Long id) {
         try {
             ApplicationResponse application = applicationService.getApplicationById(id);
             return ResponseEntity.ok(application);
@@ -62,11 +56,9 @@ public class ApplicationController {
         }
     }
 
-    /**
-     * 신청서 삭제
-     */
+    // ✅ @PathVariable 명시
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteApplication(@PathVariable Long id) {
+    public ResponseEntity<String> deleteApplication(@PathVariable("id") Long id) {
         try {
             applicationService.deleteApplication(id);
             return ResponseEntity.ok("신청서가 삭제되었습니다.");

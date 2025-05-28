@@ -19,20 +19,20 @@ public class DataInitializer {
     public ApplicationRunner initData() {
         return args -> {
             // 관리자 계정 생성 (존재하지 않는 경우에만)
-            if (!userService.existsByEmployeeId("admin001")) {
+            if (!userService.existsByEmployeeId("12345678")) {
                 try {
-                    userService.createAdmin("admin001", "admin123", "IT인프라팀", "관리자");
-                    log.info("기본 관리자 계정이 생성되었습니다: admin001");
+                    userService.createAdmin("12345678", "asdf1234!", "IT인프라팀", "관리자");
+                    log.info("기본 관리자 계정이 생성되었습니다: 12345678");
                 } catch (Exception e) {
                     log.warn("관리자 계정 생성 실패", e);
                 }
             }
 
             // 테스트 사용자 계정 생성
-            if (!userService.existsByEmployeeId("user0001")) {
+            if (!userService.existsByEmployeeId("87654321")) {
                 try {
-                    userService.createUser("user0001", "user123", "개발팀", "테스트사용자1");
-                    log.info("테스트 사용자 계정이 생성되었습니다: user0001");
+                    userService.createUser("87654321", "asdf1234!", "개발팀", "테스트사용자1");
+                    log.info("테스트 사용자 계정이 생성되었습니다: 87654321");
                 } catch (Exception e) {
                     log.warn("테스트 사용자 계정 생성 실패", e);
                 }

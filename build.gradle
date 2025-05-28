@@ -13,6 +13,11 @@ java {
 	}
 }
 
+// ✅ 컴파일러 옵션 추가
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-parameters']
+}
+
 repositories {
 	mavenCentral()
 }

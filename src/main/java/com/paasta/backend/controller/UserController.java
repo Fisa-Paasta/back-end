@@ -20,9 +20,6 @@ public class UserController {
 
     private final UserService userService;
 
-    /**
-     * 사용자 생성
-     */
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody CreateUserRequest request) {
         try {
@@ -39,9 +36,6 @@ public class UserController {
         }
     }
 
-    /**
-     * 관리자 생성
-     */
     @PostMapping("/admin")
     public ResponseEntity<UserResponse> createAdmin(@RequestBody CreateUserRequest request) {
         try {
@@ -58,11 +52,9 @@ public class UserController {
         }
     }
 
-    /**
-     * 사번으로 사용자 조회
-     */
+    // ✅ @PathVariable 명시
     @GetMapping("/{employeeId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable String employeeId) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable("employeeId") String employeeId) {
         Optional<User> userOpt = userService.findByEmployeeId(employeeId);
         
         if (userOpt.isPresent()) {
@@ -72,9 +64,6 @@ public class UserController {
         }
     }
 
-    /**
-     * 모든 사용자 조회
-     */
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -84,9 +73,6 @@ public class UserController {
         return ResponseEntity.ok(responses);
     }
 
-    /**
-     * 간단한 로그인 (임시)
-     */
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody LoginRequest request) {
         Optional<User> userOpt = userService.validateLogin(

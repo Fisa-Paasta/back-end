@@ -19,9 +19,6 @@ public class AdminController {
 
     private final ApplicationService applicationService;
 
-    /**
-     * 모든 신청서 조회 (관리자 전용)
-     */
     @GetMapping("/applications")
     public ResponseEntity<List<ApplicationResponse>> getAllApplications() {
         try {
@@ -33,11 +30,10 @@ public class AdminController {
         }
     }
 
-    /**
-     * 상태별 신청서 조회 (관리자 전용)
-     */
+    // ✅ @PathVariable 명시
     @GetMapping("/applications/status/{status}")
-    public ResponseEntity<List<ApplicationResponse>> getApplicationsByStatus(@PathVariable String status) {
+    public ResponseEntity<List<ApplicationResponse>> getApplicationsByStatus(
+            @PathVariable("status") String status) {
         try {
             List<ApplicationResponse> applications = applicationService.getApplicationsByStatus(status);
             return ResponseEntity.ok(applications);
@@ -47,12 +43,10 @@ public class AdminController {
         }
     }
 
-    /**
-     * 신청서 상태 업데이트 (관리자 전용)
-     */
+    // ✅ @PathVariable 명시
     @PutMapping("/applications/{id}/status")
     public ResponseEntity<ApplicationResponse> updateApplicationStatus(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @RequestBody StatusUpdateRequest request) {
         try {
             log.info("신청서 상태 업데이트 요청: ID={}, 상태={}, 승인자={}", 
@@ -71,11 +65,10 @@ public class AdminController {
         }
     }
 
-    /**
-     * 관리자용 신청서 상세 조회
-     */
+    // ✅ @PathVariable 명시
     @GetMapping("/applications/{id}")
-    public ResponseEntity<ApplicationResponse> getApplicationForAdmin(@PathVariable Long id) {
+    public ResponseEntity<ApplicationResponse> getApplicationForAdmin(
+            @PathVariable("id") Long id) {
         try {
             ApplicationResponse application = applicationService.getApplicationById(id);
             return ResponseEntity.ok(application);
