@@ -31,6 +31,7 @@ public class Application {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Status status = Status.RECEIVED;
     
     @Column(name = "env_type")

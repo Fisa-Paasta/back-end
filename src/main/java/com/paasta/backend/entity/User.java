@@ -31,6 +31,7 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Role role = Role.USER;
     
     @Column(name = "created_at")

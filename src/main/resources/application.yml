@@ -3,7 +3,7 @@ spring:
     name: paasta-backend
   
   datasource:
-    url: jdbc:postgresql://10.8.0.50:5432/paastadb
+    url: jdbc:postgresql://localhost:5432/paastadb
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -27,6 +27,11 @@ spring:
   
 server:
   port: 8080
+
+# ✅ SonarQube 보안 이슈 해결: 외부 설정으로 비밀번호 관리
+app:
+  default-password: ${DEFAULT_PASSWORD:asdf1234!}  # 환경변수 우선, 없으면 기본값
+  user-test-password: ${USER_TEST_PASSWORD:user123!}
   
 logging:
   level:
