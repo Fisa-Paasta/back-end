@@ -15,7 +15,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "https://paasta.store", 
+    "https://www.paasta.store", 
+    "https://api.paasta.store"
+})
 @Slf4j
 public class AuthController {
 

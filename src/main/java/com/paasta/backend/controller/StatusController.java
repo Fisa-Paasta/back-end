@@ -13,7 +13,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/status")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "https://paasta.store", 
+    "https://www.paasta.store", 
+    "https://api.paasta.store"
+})
 public class StatusController {
 
     /**
