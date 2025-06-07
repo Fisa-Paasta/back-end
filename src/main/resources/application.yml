@@ -38,3 +38,45 @@ logging:
     com.paasta.backend: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+---
+# ✅ prod 프로파일 설정 추가
+spring:
+  config:
+    activate:
+      on-profile: prod
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paastadb
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create  # ✅ 운영환경에서도 테이블 생성하도록 설정
+    show-sql: false    # 운영에서는 SQL 로그 비활성화
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Asia/Seoul
+
+server:
+  port: 8080
+
+app:
+  default-password: ${DEFAULT_PASSWORD:asdf1234!}
+  user-test-password: ${USER_TEST_PASSWORD:user123!}
+
+logging:
+  level:
+    com.paasta.backend: INFO
+    org.hibernate.SQL: WARN
