@@ -31,12 +31,14 @@ public class DataInitializer {
     private static final String CARD_DIGITAL_DEPT = "카드-디지털개발팀";
     private static final String CARD_DATA_DEPT = "카드-데이터분석팀";
     private static final String INSURANCE_PLATFORM_DEPT = "보험-플랫폼개발팀";
+    private static final String SECURITIES_TRADING_DEPT = "증권-트레이딩플랫폼팀";
     
     // 사용자 ID 상수 정의
     private static final String ADMIN_ID = "12345678";
     private static final String TEST_USER_ID_1 = "99991234";
     private static final String TEST_USER_ID_2 = "87654321";
     private static final String TEST_USER_ID_3 = "98765432";
+    private static final String TEST_USER_ID_4 = "56789012";
 
     @Bean
     public ApplicationRunner initData() {
@@ -61,6 +63,7 @@ public class DataInitializer {
         createTestUser(TEST_USER_ID_1, userTestPassword, CARD_DIGITAL_DEPT, "임시 사용자", "(IT인프라팀 제외 부서용)");
         createTestUser(TEST_USER_ID_2, userTestPassword, CARD_DATA_DEPT, "테스트사용자1", "");
         createTestUser(TEST_USER_ID_3, userTestPassword, INSURANCE_PLATFORM_DEPT, "테스트사용자2", "");
+        createTestUser(TEST_USER_ID_4, userTestPassword, SECURITIES_TRADING_DEPT, "테스트사용자3", "");
     }
     
     private void createTestUser(String employeeId, String password, String department, String userName, String note) {
