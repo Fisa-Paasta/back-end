@@ -17,7 +17,8 @@ import java.util.Map;
 @CrossOrigin(origins = {
     "https://paasta.store", 
     "https://www.paasta.store", 
-    "https://api.paasta.store"
+    "https://api.paasta.store",
+    "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com"
 })
 @Slf4j
 public class SubmissionController {
