@@ -29,7 +29,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
+        configuration.setAllowedOrigins(List.of(
             "https://paasta.store",
             "https://www.paasta.store",
             "https://api.paasta.store",
