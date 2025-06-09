@@ -13,12 +13,21 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/status")
-@CrossOrigin(origins = {
-    "https://paasta.store", 
-    "https://www.paasta.store", 
-    "https://api.paasta.store",
-    "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com"
-})
+@CrossOrigin(
+    origins = {
+        "https://paasta.store", 
+        "https://www.paasta.store", 
+        "https://api.paasta.store",
+        "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com"
+    },
+    allowedHeaders = {
+        "Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key"
+    },
+    methods = {
+        RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE, RequestMethod.OPTIONS
+    }
+)
 public class StatusController {
 
     /**
