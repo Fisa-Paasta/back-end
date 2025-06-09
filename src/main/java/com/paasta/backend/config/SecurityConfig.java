@@ -40,7 +40,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true); // ✅ 인증 포함 요청 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/api/**", configuration);
         return source;
     }
 }
