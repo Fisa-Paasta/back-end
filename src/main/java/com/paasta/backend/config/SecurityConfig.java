@@ -29,7 +29,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // ✅ 반드시 명시
+        config.setAllowedOrigins(List.of(
+            "https://paasta.store",
+            "https://www.paasta.store",
+            "https://api.paasta.store",
+            "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true); // ✅ 인증 포함 요청 허용
