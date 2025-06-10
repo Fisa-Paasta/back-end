@@ -33,7 +33,8 @@ public class SecurityConfig {
             "https://paasta.store",
             "https://www.paasta.store",
             "https://api.paasta.store",
-            "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com"
+            "https://xb8g34rjo2.execute-api.ap-northeast-2.amazonaws.com",
+            "k8s-backendapi-410db993af-1680615671.ap-northeast-2.elb.amazonaws.com"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
